@@ -41,4 +41,5 @@ sudo systemctl status docker
 
 ## Gestió de comptes del domini
 man curl
+
 curl -v -k -u admin@poste.io
