@@ -1,9 +1,12 @@
 ## INTRODUCCIÓ
+
 En aquest projecte hem de crear un domini de correu electrònic mitjançant poste.io. Per fer-ho utilitzarem el docker en la màquina virtual de netinvm. Haurem de poder adminstrar el correu desde un terminal de comandes, amb curl, i desde la pàgina web.
 
 
 # El server que ens presten
+
 He creat un domini amb el meu nom i cognom areeba.ellahi.io
+
 Després he creat un compte de correu amb aquell domini
  aellahi@areebaellahi.io
 
@@ -13,30 +16,48 @@ Després he creat un compte de correu amb aquell domini
 
 ## El nostre server
 En play with docker:
+
 crearem un volum:
+
 docker volume create volum_mail_server
+
 Després posem:
+
 docker run \-p 443:443 \-e TZ=Europe/Andorra \-v volum_mail_server:/data \--name "aellahi.edu" \-h "aellahi.edu" \-t analogic/poste.io
 
 ## Generació dels certificats
  He decidit crear el certificat amb mkcert.
+
 Per fer lo posem:
+
 -sudo apt install libnss3-tools
+
 -mkcert client.org
+
 -mkcert server.org
 
 ## Docker a un vm Debian
- Com a root en el terminal inte, he instal·lat docker 
+Com a root en el terminal inte, he instal·lat docker 
+
 El primer pas es borrar versions de docker que estan de abans.
+
 sudo apt-get purge docker lxc-docker docker-engine docker.io
+
 Per baixar el gpg de docker posem:
 apt -get update
+
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add –
+
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+
 Per instalar docker fem:
+
 sudo apt-get update
+
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+
 Per veure l’estat:
+
 sudo systemctl status docker
 
 ## Gestió de comptes del domini
