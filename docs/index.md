@@ -1,37 +1,44 @@
-## Welcome to GitHub Pages
+## INTRODUCCIÓ
+En aquest projecte hem de crear un domini de correu electrònic mitjançant poste.io. Per fer-ho utilitzarem el docker en la màquina virtual de netinvm. Haurem de poder adminstrar el correu desde un terminal de comandes, amb curl, i desde la pàgina web.
 
-You can use the [editor on GitHub](https://github.com/Areebaellahi/areebam4/edit/pagina/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# El server que ens presten
+He creat un domini amb el meu nom i cognom areeba.ellahi.io
+Després he creat un compte de correu amb aquell domini
+ aellahi@areebaellahi.io
 
-### Markdown
+- He enviat un email a joan@surfacad.edu i em dona un error de que aquest missatge no es pot arribar al destinatari perquè en un domini privat. 
+- Després he provat enviar un email al meu compte de l’institut i no em dona cap error i el missatge a arribat en la safata d’entrada.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+## El nostre server
+En play with docker:
+crearem un volum:
+docker volume create volum_mail_server
+Després posem:
+docker run \-p 443:443 \-e TZ=Europe/Andorra \-v volum_mail_server:/data \--name "aellahi.edu" \-h "aellahi.edu" \-t analogic/poste.io
 
-# Header 1
-## Header 2
-### Header 3
+## Generació dels certificats
+ He decidit crear el certificat amb mkcert.
+Per fer lo posem:
+-sudo apt install libnss3-tools
+-mkcert client.org
+-mkcert server.org
 
-- Bulleted
-- List
+## Docker a un vm Debian
+ Com a root en el terminal inte, he instal·lat docker 
+El primer pas es borrar versions de docker que estan de abans.
+sudo apt-get purge docker lxc-docker docker-engine docker.io
+Per baixar el gpg de docker posem:
+apt -get update
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add –
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+Per instalar docker fem:
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+Per veure l’estat:
+sudo systemctl status docker
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Areebaellahi/areebam4/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Gestió de comptes del domini
+man curl
+curl -v -k -u admin@poste.io
