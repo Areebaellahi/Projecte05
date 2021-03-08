@@ -1,2 +1,1 @@
-# demodimecres
-Hola penya!
+# projecte
